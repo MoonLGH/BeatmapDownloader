@@ -1,7 +1,7 @@
 {
   "name": "beatmapdl",
   "productName": "Beatmap DL",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "App To Download Beatmaps",
   "main": "src/index.js",
   "scripts": {
