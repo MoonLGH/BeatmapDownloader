@@ -13,7 +13,8 @@ function createWindow () {
     minWidth: 900,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    icon: path.join(__dirname, './public/favicon.ico')
   })
 
   // and load the index.html of the app.
@@ -114,7 +115,7 @@ function sendNotification(title,body){
     const copied = {
       title,
       body,
-      icon: path.join(__dirname, './favicon.ico')
+      icon: path.join(__dirname, './public/favicon.ico')
     }
 
     new Notification(copied).show()
