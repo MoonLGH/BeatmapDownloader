@@ -10,7 +10,7 @@ This app use
 - [ElectronJS](https://www.electronjs.org)
 
 ## How it works
-This app communicate with [OsuApi](https://osu.ppy.sh/beatmapsets) to get the beatmaps and download it with fs in the main process
+This app communicate with [OsuApi](https://osu.ppy.sh/beatmapsets) with oauth2 to get the beatmaps and download it with fs in the main process
 
 ## Download
-You can download it by going to this repo [Actions Page](https://github.com/MoonLGH/BeatmapDownloader/actions) and select the latest version
+You can download it by going to this repo [Releases Page](https://github.com/MoonLGH/BeatmapDownloader/releases/) and select the latest version
