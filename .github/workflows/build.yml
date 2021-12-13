@@ -3,7 +3,10 @@ name: Build Executable Files
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-on: push
+on:
+  push:
+    tags:
+      - "v*.*.*"
 
 jobs:
   build-mac:
@@ -21,11 +24,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
-    - name: Save Files
-      uses: actions/upload-artifact@v2.2.3
+    - name: Release
+      uses: softprops/action-gh-release@v1
       with:
-        name: app-macos
-        path: dist/
+          files : "dist/*"
     
   build-lnx:
 
@@ -42,11 +44,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
-    - name: Save Files
-      uses: actions/upload-artifact@v2.2.3
+    - name: Release
+      uses: softprops/action-gh-release@v1
       with:
-        name: app-linux
-        path: dist/
+          files : "dist/*"
     
   build-win:
 
@@ -63,8 +64,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run build
-    - name: Save Files
-      uses: actions/upload-artifact@v2.2.3
+    - name: Release
+      uses: softprops/action-gh-release@v1
       with:
-        name: app-windows
-        path: dist/
+          files : "dist/*"
