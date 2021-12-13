@@ -12,7 +12,8 @@ function createWindow () {
     minHeight: 600,
     minWidth: 900,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     },
     icon: path.join(__dirname, './public/favicon.ico')
   })
