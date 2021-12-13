@@ -9,7 +9,6 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "build": "electron-packager --out Output --overwrite --platform win32 --appname clientlmcenter . --icon=./src/favicon.ico",
     "lint": "echo \"No linting configured\"",
     "build-installer": "electron-builder"
   },
