@@ -66,7 +66,6 @@
     "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
     "electron-squirrel-startup": "^1.0.0",
-    "fs": "0.0.1-security",
     "jquery": "^3.6.0",
     "node-fetch": "^3.1.0"
   },
