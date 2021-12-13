@@ -1,7 +1,7 @@
 # BeatmapDownloader
 
 ## note
-This is just a wallmart copy version of [OctoDumb/beatmapdownloader](https://github.com/OctoDumb/beatmapdownloader) that use react, but this app only use vanilla html and nodejs
+This is just a walmart copy version of [OctoDumb/beatmapdownloader](https://github.com/OctoDumb/beatmapdownloader) that use react, but this app only use vanilla html and nodejs
 
 ## About App
 This app use 
