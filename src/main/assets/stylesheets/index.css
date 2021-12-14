@@ -28,10 +28,15 @@ body {
 }
 
 .prompts {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     display: block;
     text-align: -webkit-center;
     width: 50%;
-    position: relative;
 }
 
 .prompt-welcome {

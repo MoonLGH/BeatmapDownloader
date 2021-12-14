@@ -26,18 +26,7 @@ function createWindow() {
   mainWindow.setMenuBarVisibility(false);
 
   // mainWindow.webContents.openDevTools()
-  if (Notification.isSupported() == true) {
-    const notification = new Notification({
-      title: "App Started!",
-      body: "You Can Open The App Now",
-      icon: path.join(__dirname, "./public/favicon.ico"),
-    });
-
-    notification.show();
-    notification.on("click", () => {
-      mainWindow.focus();
-    });
-  }
+  sendNotification("App Started", "You can open the app now");
 }
 
 app.on("ready", createWindow);
@@ -92,7 +81,6 @@ async function downloadBeatmapset(mapsetId, accesstoken) {
     },
   });
 
-  console.log(mapsetId);
   const {data, headers} = await api.get(`/beatmapsets/${mapsetId}/download`, {
     responseType: "stream",
     headers: {

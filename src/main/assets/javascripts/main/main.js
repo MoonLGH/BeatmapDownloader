@@ -1,18 +1,13 @@
-const axios = require("axios");
 const fs = require("fs");
 const {ipcRenderer} = require("electron");
 
-const folders = fs.readdirSync(JSON.parse(localStorage.getItem("path")).filePaths[0], {
-  withFileTypes: true,
-}).map((dirent) => dirent.name).filter(hasNumber).map((str) =>{
-  const str0 = str.split(" ")[0];
-  let numb = str0.match(/\d/g);
-  numb = numb.join("");
-  return {id: numb, name: str};
-});
-
-function hasNumber(myString) {
-  return /\d/.test(myString);
+let folders = [];
+function readFolders() {
+  folders = fs.readdirSync(JSON.parse(localStorage.getItem("path")).filePaths[0], {
+    withFileTypes: true,
+  }).map((dirent) => dirent.name).map((str) =>{
+    return {id: str.split(" ")[0], name: str};
+  });
 }
 
 async function init() {
@@ -20,22 +15,15 @@ async function init() {
   if (Date.now() > user.refreshAfter) {
     await client.refresh();
   }
+  readFolders();
   user = JSON.parse(localStorage.getItem("user"));
-  const initialsearch = await searchBeatmaps(user.token, {});
+  const initialsearch = await client.searchBeatmaps(user.token, {});
 
   loadBeatmaps(initialsearch);
   document.querySelector("#general > div > label:nth-child(2) > span").innerHTML = `Recommended difficulty (${initialsearch.recommended_difficulty.toFixed(2)})`;
 }
 
 init();
-async function searchBeatmaps(accesstoken, params) {
-  const {data} = await axios.get("https://osu.ppy.sh/api/v2/beatmapsets/search", {
-    headers: {
-      "Authorization": `Bearer ${accesstoken}`,
-    },
-  });
-  return data;
-}
 
 const beatmaps = require("../assets/javascripts/api/beatmapsets");
 async function loadBeatmaps(maps) {
@@ -125,6 +113,10 @@ ipcRenderer.on("downloading", (event, data) => {
   // if there is a element with the id of the beatmap
   if (document.getElementById(`${data.id}`)) {
     document.getElementById(`${data.id}`).style.width = `${data.progress}`;
+  }
+
+  if (data.progress === "100%") {
+    readFolders();
   }
 });
 
