@@ -1,10 +1,10 @@
-const {app, BrowserWindow,ipcMain,Notification} = require('electron')
-const path = require('path')
+const {app, BrowserWindow, ipcMain, Notification, dialog} = require("electron");
+const path = require("path");
+const axios = require("axios");
+const {createWriteStream} = require("fs");
 
-
-app.setAppUserModelId("Osu Beatmaps")
-
-function createWindow () {
+app.setAppUserModelId("Osu Beatmaps");
+function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 900,
@@ -13,112 +13,107 @@ function createWindow () {
     minWidth: 900,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
     },
-    icon: path.join(__dirname, './public/favicon.ico')
-  })
+    icon: path.join(__dirname, "./public/favicon.ico"),
+  });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname,'./main/index.html'))
+  mainWindow.loadFile(path.join(__dirname, "./main/index.html"));
 
   // Open the DevTools.
   // disabled menu
-  mainWindow.setMenuBarVisibility(false)
+  mainWindow.setMenuBarVisibility(false);
 
   // mainWindow.webContents.openDevTools()
   if (Notification.isSupported() == true) {
     const notification = new Notification({
-      title: 'App Started!',
-      body: 'You Can Open The App Now',
-      icon: path.join(__dirname, './public/favicon.ico')
-    })
+      title: "App Started!",
+      body: "You Can Open The App Now",
+      icon: path.join(__dirname, "./public/favicon.ico"),
+    });
 
-    notification.show()
-
+    notification.show();
     notification.on("click", () => {
-      mainWindow.focus()
-    })
+      mainWindow.focus();
+    });
   }
 }
 
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("ready", createWindow);
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
-app.on('activate', () => {
+app.on("activate", () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
-  
-ipcMain.on("setpath", function(event){
-  const { dialog } = require('electron')
+
+ipcMain.on("setpath", function(event) {
   dialog.showOpenDialog(BrowserWindow.getFocusedWindow(), {
-    properties: ['openDirectory']
-  }).then(result => {
-      event.sender.send('pathdata', result);
-  })
-})
+    properties: ["openDirectory"],
+  }).then((result) => {
+    event.sender.send("pathdata", result);
+  });
+});
 
-ipcMain.on("download", async function(event,args){
-  let { stream, headers } = await downloadBeatmapset(args.id,args.token)
-  let fileName = `${args.id} ${args.artist} - ${args.title}.osz`.replace(/[^0-9A-Za-z!@#$%^&()_+=[\]'. -]/g, "");
-  let writeStream = createWriteStream(`${args.path}/${fileName}`);
+ipcMain.on("download", async function(event, args) {
+  const {stream, headers} = await downloadBeatmapset(args.id, args.token);
+  const fileName = `${args.id} ${args.artist} - ${args.title}.osz`.replace(/[^0-9A-Za-z!@#$%^&()_+=[\]'. -]/g, "");
+  const writeStream = createWriteStream(`${args.path}/${fileName}`);
 
-  const totalLength = parseInt(headers['content-length']);
+  const totalLength = parseInt(headers["content-length"]);
   let dlLength = 0;
-  
+
   stream.on("data", (chunk) => {
-      dlLength += chunk.length;
-      event.sender.send('downloading', {progress:`${Math.round(dlLength / totalLength * 100)}%`,id:args.id});
+    dlLength += chunk.length;
+    event.sender.send("downloading", {progress: `${Math.round(dlLength / totalLength * 100)}%`, id: args.id});
   });
 
   stream.on("end", () => {
-      sendNotification(`Downloader`,`${args.title} - ${args.artist} has been downloaded!`)
-      event.sender.send('downloading', {progress:`100%`,id:args.id});
+    sendNotification("Downloader", `${args.title} - ${args.artist} has been downloaded!`);
+    event.sender.send("downloading", {progress: "100%", id: args.id});
   });
 
   stream.pipe(writeStream);
-})
+});
 
-const axios = require('axios');
-const {createWriteStream} = require('fs');
-async function downloadBeatmapset(mapsetId,accesstoken) {
-  let api = axios.create({
-      baseURL: "https://osu.ppy.sh/api/v2",
-      headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Allow-Methods': '*'
-      },
+async function downloadBeatmapset(mapsetId, accesstoken) {
+  const api = axios.create({
+    baseURL: "https://osu.ppy.sh/api/v2",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Methods": "*",
+    },
   });
-  
-  console.log(mapsetId)
-  let { data, headers } = await api.get(`/beatmapsets/${mapsetId}/download`, {
-      responseType: "stream",
-      headers: {
-          'Authorization': `Bearer ${accesstoken}`
-      },
-      timeout: 240e3
+
+  console.log(mapsetId);
+  const {data, headers} = await api.get(`/beatmapsets/${mapsetId}/download`, {
+    responseType: "stream",
+    headers: {
+      "Authorization": `Bearer ${accesstoken}`,
+    },
+    timeout: 240e3,
   });
   return {
-      stream: data,
-      headers
+    stream: data,
+    headers,
   };
 }
 
-function sendNotification(title,body){
+function sendNotification(title, body) {
   if (Notification.isSupported() == true) {
     const copied = {
       title,
       body,
-      icon: path.join(__dirname, './public/favicon.ico')
-    }
+      icon: path.join(__dirname, "./public/favicon.ico"),
+    };
 
-    new Notification(copied).show()
+    new Notification(copied).show();
   }
 }

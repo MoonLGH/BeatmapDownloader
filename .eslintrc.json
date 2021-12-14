@@ -1,0 +1,28 @@
+{
+    "env": {
+        "node": true,
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "google"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2021,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-var": "error",
+        "require-jsdoc":"off",
+        "max-len": "off",
+        "new-cap": "off",
+        "quotes": [
+            "warn",
+            "double"
+        ],
+        "linebreak-style":"off",
+        "no-unused-vars": "off",
+        "no-undef": "off"
+    }
+}

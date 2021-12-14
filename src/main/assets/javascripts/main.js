@@ -1,52 +1,52 @@
-const axios = require('axios');
-const fs = require('fs');
-const { ipcRenderer } = require('electron');
+const axios = require("axios");
+const fs = require("fs");
+const {ipcRenderer} = require("electron");
 
-let folders = fs.readdirSync(JSON.parse(localStorage.getItem("path")).filePaths[0], {
-    withFileTypes: true,
-  }).map((dirent) => dirent.name).filter(hasNumber).map((str) =>{
-    let str0 = str.split(" ")[0]    
-    var numb = str0.match(/\d/g);
-    numb = numb.join("");
-    return {id: numb, name: str}
-  });
+const folders = fs.readdirSync(JSON.parse(localStorage.getItem("path")).filePaths[0], {
+  withFileTypes: true,
+}).map((dirent) => dirent.name).filter(hasNumber).map((str) =>{
+  const str0 = str.split(" ")[0];
+  let numb = str0.match(/\d/g);
+  numb = numb.join("");
+  return {id: numb, name: str};
+});
 
-  function hasNumber(myString) {
-    return /\d/.test(myString);
+function hasNumber(myString) {
+  return /\d/.test(myString);
+}
+
+async function init() {
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (Date.now() > user.refreshAfter) {
+    await client.refresh();
   }
+  user = JSON.parse(localStorage.getItem("user"));
+  const initialsearch = await searchBeatmaps(user.token, {});
 
-  async function init(){
-    let user = JSON.parse(localStorage.getItem("user"))
-    if(Date.now() > user.refreshAfter){
-        await client.refresh()
-    }
-    user = JSON.parse(localStorage.getItem("user"))
-    let initialsearch = await searchBeatmaps(user.token,{})
-
-    loadBeatmaps(initialsearch)
-    document.querySelector("#general > div > label:nth-child(2) > span").innerHTML = `Recommended difficulty (${initialsearch.recommended_difficulty.toFixed(2)})`
+  loadBeatmaps(initialsearch);
+  document.querySelector("#general > div > label:nth-child(2) > span").innerHTML = `Recommended difficulty (${initialsearch.recommended_difficulty.toFixed(2)})`;
 }
 
-init()
-async function searchBeatmaps(accesstoken,params){
-    let { data } = await axios.get(`https://osu.ppy.sh/api/v2/beatmapsets/search`,{
-        headers: {
-            'Authorization': `Bearer ${accesstoken}`
-        }
-    });
-    return data
+init();
+async function searchBeatmaps(accesstoken, params) {
+  const {data} = await axios.get("https://osu.ppy.sh/api/v2/beatmapsets/search", {
+    headers: {
+      "Authorization": `Bearer ${accesstoken}`,
+    },
+  });
+  return data;
 }
 
-let beatmaps = require("../assets/javascripts/api/beatmapsets")
-async function loadBeatmaps(maps){
-    console.log(maps)
-    let beatmapmapped = maps.beatmapsets.map(s => new beatmaps(s))
+const beatmaps = require("../assets/javascripts/api/beatmapsets");
+async function loadBeatmaps(maps) {
+  console.log(maps);
+  const beatmapmapped = maps.beatmapsets.map((s) => new beatmaps(s));
 
-    beatmapmapped.forEach(beatmap => {
-        let div = document.createElement("div")
-        div.innerHTML = `
+  beatmapmapped.forEach((beatmap) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
         <div class="map">
-        ${folders.find(f => f.id == beatmap.id) ? `<div class="progress-exist" style="width: 100%;"></div>` : ""}
+        ${folders.find((f) => f.id == beatmap.id) ? "<div class=\"progress-exist\" style=\"width: 100%;\"></div>" : ""}
             <div class="progress" id="${beatmap.id}" style="width: 0%;"></div>
                 <div class="map-header" style="background: url('${beatmap.covers.cover2x}') center center / cover;">
                     <div class="map-header__bubbles">
@@ -65,69 +65,69 @@ async function loadBeatmaps(maps){
                 ${beatmap.beatmaps.map(loadIcons).join("")}
             </div>
         </div>
-    </div>`
-        document.querySelector(".content-maps").appendChild(div)
-    })
+    </div>`;
+    document.querySelector(".content-maps").appendChild(div);
+  });
 }
-   
-function calculateMode(diff){
-    switch(diff) {
-        case 1:
-            return "taiko"
-        case 2:
-            return "catch"
-        case 3:
-            return "mania"
-        default:
-            return "standart"
-    }
+
+function calculateMode(diff) {
+  switch (diff) {
+    case 1:
+      return "taiko";
+    case 2:
+      return "catch";
+    case 3:
+      return "mania";
+    default:
+      return "standart";
+  }
 }
 
 function loadIcons(beatmap) {
-    let diffclass = getDiffClass(beatmap.stars)
-    let tooltip = ``
-    return `<div onmouseover="hover(this)" onmouseout="unhover(this)">
+  const diffclass = getDiffClass(beatmap.stars);
+  const tooltip = "";
+  return `<div onmouseover="hover(this)" onmouseout="unhover(this)">
     <div class="icons-tooltip">
         <span>${beatmap.version}</span>
         <span>${beatmap.stars}★</span>
     </div>
     <img width="20px" height="20px" title="" src="../assets/icons/${calculateMode(beatmap.mode)}-icon.svg" class="${diffclass} diff-icon" onload="SVGInject(this)">
     </div>
-    `
+    `;
 }
 
-function unhover(element){
-    element.querySelector(".icons-tooltip").style.display = "none"
+function unhover(element) {
+  element.querySelector(".icons-tooltip").style.display = "none";
 }
 
-function hover(element){
-    element.querySelector(".icons-tooltip").style.display = "flex"
+function hover(element) {
+  element.querySelector(".icons-tooltip").style.display = "flex";
 }
-function getDiffClass(stars){
-    if(stars < 2) return "diff-easy";
-    else if(stars < 2.7) return "diff-normal";
-    else if(stars < 4) return "diff-hard";
-    else if(stars < 5.3) return "diff-insane";
-    else if(stars < 6.5) return "diff-expert";
-    else return "diff-expertplus";
-}
-
-async function download(beatmapId,artist,title){
-    let user = JSON.parse(localStorage.getItem("user"))
-    if(Date.now() > user.refreshAfter){
-        await client.refresh()
-    }
-    user = JSON.parse(localStorage.getItem("user"))
-    ipcRenderer.send("download",{id:beatmapId,artist:artist,title:title,token:user.token,path:JSON.parse(localStorage.getItem("path")).filePaths[0]})
+function getDiffClass(stars) {
+  if (stars < 2) return "diff-easy";
+  else if (stars < 2.7) return "diff-normal";
+  else if (stars < 4) return "diff-hard";
+  else if (stars < 5.3) return "diff-insane";
+  else if (stars < 6.5) return "diff-expert";
+  else return "diff-expertplus";
 }
 
-ipcRenderer.on("downloading",(event,data) => {
-    // if there is a element with the id of the beatmap
-    if(document.getElementById(`${data.id}`)){
-        document.getElementById(`${data.id}`).style.width = `${data.progress}`
-    }
-})
+async function download(beatmapId, artist, title) {
+  let user = JSON.parse(localStorage.getItem("user"));
+  if (Date.now() > user.refreshAfter) {
+    await client.refresh();
+  }
+  user = JSON.parse(localStorage.getItem("user"));
+  ipcRenderer.send("download", {id: beatmapId, artist: artist, title: title, token: user.token, path: JSON.parse(localStorage.getItem("path")).filePaths[0]});
+}
 
-function deleteAllMaps(){
-    document.querySelector(".content-maps").innerHTML = ""
+ipcRenderer.on("downloading", (event, data) => {
+  // if there is a element with the id of the beatmap
+  if (document.getElementById(`${data.id}`)) {
+    document.getElementById(`${data.id}`).style.width = `${data.progress}`;
+  }
+});
+
+function deleteAllMaps() {
+  document.querySelector(".content-maps").innerHTML = "";
 }
