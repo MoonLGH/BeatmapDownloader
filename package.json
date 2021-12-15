@@ -1,6 +1,7 @@
 {
   "name": "beatmapdl",
   "productName": "Beatmap DL",
+  "author": "MoonLGH",
   "version": "1.0.4",
   "description": "App To Download Beatmaps",
   "main": "src/index.js",
@@ -14,7 +15,8 @@
     "build-installer": "electron-builder"
   },
   "build": {
-    "appId": "Beatmap DL",
+    "appId": "org.moonlgh.beatmapdl",
+    "productName": "Beatmap DL",
     "win": {
       "target": [
         "nsis"
@@ -30,10 +32,6 @@
     }
   },
   "keywords": [],
-  "author": {
-    "name": "MoonLGH",
-    "email": "MoonLMC1212@gmail.com"
-  },
   "license": "MIT",
   "config": {
     "forge": {
@@ -65,6 +63,7 @@
   "dependencies": {
     "axios": "^0.24.0",
     "cheerio": "^1.0.0-rc.10",
+    "discord-rpc": "^4.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.6.0",
     "node-fetch": "^3.1.0"

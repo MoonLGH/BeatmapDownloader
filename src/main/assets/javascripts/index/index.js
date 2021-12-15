@@ -1,6 +1,6 @@
 const {ipcRenderer} = require("electron");
 const client = require("./assets/javascripts/api/client");
-
+const fs = require("fs");
 const alert = document.querySelector("#alerts");
 
 async function init() {
@@ -14,13 +14,29 @@ async function init() {
     return;
   }
 
+  if (!fs.existsSync(JSON.parse(localStorage.getItem("path")).filePaths[0])) {
+    localStorage.removeItem("path");
+    document.location.reload();
+    return;
+  }
+
   const loginData = await client.login(JSON.parse(localStorage.getItem("user")));
   Welcome(loginData);
+
+  if (!localStorage.getItem("rpc")) {
+    localStorage.setItem("rpc", JSON.stringify(true));
+  }
+
+  ipcRenderer.send("rpcToggle", {toggle: JSON.parse(localStorage.getItem("rpc"))});
 }
 
 function Welcome(user) {
-  document.querySelector(".username-welcome").innerText = `Logined as: ${user.username}`;
-  document.querySelector("#avatarimg").setAttribute("src", user.avatar_url);
+  if (user) {
+    document.querySelector(".username-welcome").innerText = `Logined as: ${user.username}`;
+    document.querySelector("#avatarimg").setAttribute("src", user.avatar_url);
+  } else {
+    document.getElementById("welcome-title").innerText = "You are offline";
+  }
   showPrompt(".prompt-welcome");
 }
 

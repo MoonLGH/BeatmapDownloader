@@ -3,6 +3,11 @@ const {ipcRenderer} = require("electron");
 
 let folders = [];
 function readFolders() {
+  if (!fs.existsSync(JSON.parse(localStorage.getItem("path")).filePaths[0])) {
+    localStorage.removeItem("path");
+    document.location.href = "../index.html";
+    return;
+  }
   folders = fs.readdirSync(JSON.parse(localStorage.getItem("path")).filePaths[0], {
     withFileTypes: true,
   }).map((dirent) => dirent.name).map((str) =>{
@@ -21,6 +26,8 @@ async function init() {
 
   loadBeatmaps(initialsearch);
   document.querySelector("#general > div > label:nth-child(2) > span").innerHTML = `Recommended difficulty (${initialsearch.recommended_difficulty.toFixed(2)})`;
+
+  ipcRenderer.send("rpcState", {details: "Beatmaps Menu", state: "Searching Beatmaps"});
 }
 
 init();

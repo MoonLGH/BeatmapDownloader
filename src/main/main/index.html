@@ -9,13 +9,7 @@
     <link rel="stylesheet" href="../assets/stylesheets/maps.css">
     <link rel="stylesheet" href="../assets/stylesheets/main.css">
         <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-        <link rel="apple-touch-icon" sizes="180x180" href="../../public/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="../../public/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="../../public/favicon-16x16.png">
-        <link rel="manifest" href="../../public/site.webmanifest">
-        <link rel="mask-icon" href="../../public/safari-pinned-tab.svg" color="#5bbad5">
-        <meta name="msapplication-TileColor" content="#da532c">
-        <meta name="theme-color" content="#ffffff">
+
     <title>Welcome!</title>
 </head>
 
@@ -38,55 +32,66 @@
             <div class="content-query"><input class="content-query__input" type="text" placeholder="Search"></div>
             <div class="content-params">
                 <div class="content-params-row" id="mode"><span class="content-params-row__title">Mode</span>
-                    <div class="content-params-row__options"><label class="content-params-row__option"><input type="radio" name="params-modes" checked=""><span>Any</span></label><label class="content-params-row__option"><input type="radio" name="params-modes" data="0"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 500 500" style="width: 28px; height: 28px;">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #fff;
-                                }
-                            </style>
-                        </defs>
-                        <path class="cls-1" d="M251.35,89.92A158.72,158.72,0,1,1,92.62,248.64,158.72,158.72,0,0,1,251.35,89.92Z" transform="translate(0 0)"></path>
-                        <path class="cls-1" d="M45,248.45c0,113.71,92.19,205.88,205.89,205.88s205.89-92.17,205.89-205.88S364.59,42.57,250.88,42.57,45,134.75,45,248.45ZM250,0C388.06,0,500,111.93,500,250S388.06,500,250,500,0,388.07,0,250,111.92,0,250,0Z" transform="translate(0 0)"></path>
-                    </svg></label><label class="content-params-row__option"><input type="radio" name="params-modes" data="1"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 500 500" style="width: 28px; height: 28px;">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #fff;
-                                }
-                            </style>
-                        </defs>
-                        <path class="cls-1" d="M110.7,248.93A141.69,141.69,0,0,0,222.76,387.46V110.37A141.69,141.69,0,0,0,110.7,248.93ZM275.58,109.17V388.66a141.66,141.66,0,0,0,0-279.49Zm0,0V388.66a141.66,141.66,0,0,0,0-279.49ZM110.7,248.93A141.69,141.69,0,0,0,222.76,387.46V110.37A141.69,141.69,0,0,0,110.7,248.93ZM250,0C111.93,0,0,111.93,0,250S111.93,500,250,500,500,388.07,500,250,388.07,0,250,0Zm2.56,445.29c-106.82,0-193.42-86.58-193.42-193.4S145.74,58.47,252.56,58.47,446,145.05,446,251.89,359.37,445.29,252.56,445.29Zm23-336.12V388.66a141.66,141.66,0,0,0,0-279.49ZM110.7,248.93A141.69,141.69,0,0,0,222.76,387.46V110.37A141.69,141.69,0,0,0,110.7,248.93Z">
-                        </path>
-                    </svg></label><label class="content-params-row__option">
-                        <input type="radio" name="params-modes" data="2"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 499.99 500.01" style="width: 28px; height: 28px;">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #fff;
-                                }
-                            </style>
-                        </defs>
-                        <path class="cls-1" d="M250,0C388.07,0,500,111.93,500,250S388.07,500,250,500,0,388.07,0,250,111.93,0,250,0ZM456.78,248.45c0-113.71-92.18-205.89-205.89-205.89S45,134.74,45,248.45s92.18,205.89,205.89,205.89S456.78,362.16,456.78,248.45Z" transform="translate(-0.01 0.01)"></path>
-                        <circle class="cls-1" cx="347.53" cy="218.08" r="42.19"></circle>
-                        <circle class="cls-1" cx="252.99" cy="349.72" r="42.19"></circle>
-                        <circle class="cls-1" cx="158.13" cy="218.08" r="42.19"></circle>
-                    </svg></label><label class="content-params-row__option"><input type="radio" name="params-modes" data="3"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 499.98 500" style="width: 28px; height: 28px;">
-                        <defs>
-                            <style>
-                                .cls-1 {
-                                    fill: #fff;
-                                }
-                            </style>
-                        </defs>
-                        <path class="cls-1" d="M250,0C388,0,500,111.93,500,250S388,500,250,500,0,388.07,0,250,111.91,0,250,0ZM456.76,248.45c0-113.7-92.18-205.88-205.89-205.88S45,134.75,45,248.45s92.18,205.88,205.88,205.88S456.76,362.16,456.76,248.45Z" transform="translate(0 0)"></path>
-                        <rect class="cls-1" x="313.25" y="162.43" width="54.64" height="171.23" rx="25.28">
-                        </rect>
-                        <rect class="cls-1" x="222.75" y="85.77" width="54.62" height="323.71" rx="25.28">
-                        </rect>
-                        <rect class="cls-1" x="131.95" y="162.83" width="54.62" height="171.23" rx="25.28">
-                        </rect>
-                    </svg></label></div>
+                    <div class="content-params-row__options">
+                        <label class="content-params-row__option">
+                        <input type="radio" name="params-modes" checked><span>Any</span>
+                        </label>
+                        <label class="content-params-row__option">
+                        <input type="radio" name="params-modes" data="0"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 500 500" style="width: 28px; height: 28px;">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: #fff;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="cls-1" d="M251.35,89.92A158.72,158.72,0,1,1,92.62,248.64,158.72,158.72,0,0,1,251.35,89.92Z" transform="translate(0 0)"></path>
+                            <path class="cls-1" d="M45,248.45c0,113.71,92.19,205.88,205.89,205.88s205.89-92.17,205.89-205.88S364.59,42.57,250.88,42.57,45,134.75,45,248.45ZM250,0C388.06,0,500,111.93,500,250S388.06,500,250,500,0,388.07,0,250,111.92,0,250,0Z" transform="translate(0 0)"></path>
+                        </svg></label>
+                        <label class="content-params-row__option">
+                        <input type="radio" name="params-modes" data="1"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 500 500" style="width: 28px; height: 28px;">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: #fff;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="cls-1" d="M110.7,248.93A141.69,141.69,0,0,0,222.76,387.46V110.37A141.69,141.69,0,0,0,110.7,248.93ZM275.58,109.17V388.66a141.66,141.66,0,0,0,0-279.49Zm0,0V388.66a141.66,141.66,0,0,0,0-279.49ZM110.7,248.93A141.69,141.69,0,0,0,222.76,387.46V110.37A141.69,141.69,0,0,0,110.7,248.93ZM250,0C111.93,0,0,111.93,0,250S111.93,500,250,500,500,388.07,500,250,388.07,0,250,0Zm2.56,445.29c-106.82,0-193.42-86.58-193.42-193.4S145.74,58.47,252.56,58.47,446,145.05,446,251.89,359.37,445.29,252.56,445.29Zm23-336.12V388.66a141.66,141.66,0,0,0,0-279.49ZM110.7,248.93A141.69,141.69,0,0,0,222.76,387.46V110.37A141.69,141.69,0,0,0,110.7,248.93Z">
+                            </path>
+                        </svg></label>
+                        <label class="content-params-row__option">
+                            <input type="radio" name="params-modes" data="2"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 499.99 500.01" style="width: 28px; height: 28px;">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: #fff;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="cls-1" d="M250,0C388.07,0,500,111.93,500,250S388.07,500,250,500,0,388.07,0,250,111.93,0,250,0ZM456.78,248.45c0-113.71-92.18-205.89-205.89-205.89S45,134.74,45,248.45s92.18,205.89,205.89,205.89S456.78,362.16,456.78,248.45Z" transform="translate(-0.01 0.01)"></path>
+                            <circle class="cls-1" cx="347.53" cy="218.08" r="42.19"></circle>
+                            <circle class="cls-1" cx="252.99" cy="349.72" r="42.19"></circle>
+                            <circle class="cls-1" cx="158.13" cy="218.08" r="42.19"></circle>
+                        </svg></label>
+                        <label class="content-params-row__option">
+                        <input type="radio" name="params-modes" data="3"><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 499.98 500" style="width: 28px; height: 28px;">
+                            <defs>
+                                <style>
+                                    .cls-1 {
+                                        fill: #fff;
+                                    }
+                                </style>
+                            </defs>
+                            <path class="cls-1" d="M250,0C388,0,500,111.93,500,250S388,500,250,500,0,388.07,0,250,111.91,0,250,0ZM456.76,248.45c0-113.7-92.18-205.88-205.89-205.88S45,134.75,45,248.45s92.18,205.88,205.88,205.88S456.76,362.16,456.76,248.45Z" transform="translate(0 0)"></path>
+                            <rect class="cls-1" x="313.25" y="162.43" width="54.64" height="171.23" rx="25.28">
+                            </rect>
+                            <rect class="cls-1" x="222.75" y="85.77" width="54.62" height="323.71" rx="25.28">
+                            </rect>
+                            <rect class="cls-1" x="131.95" y="162.83" width="54.62" height="171.23" rx="25.28">
+                            </rect>
+                        </svg></label>
+                    </div>
                 </div>
                 <div class="content-params-row" id="general"><span class="content-params-row__title">General</span>
                     <div class="content-params-row__options">
@@ -106,10 +111,10 @@
                 </div>
                 <div class="content-params-row" id="categories"><span
                         class="content-params-row__title">Categories</span>
-                    <div class="content-params-row__options"><label class="content-params-row__option"><input data="any" checked        
+                    <div class="content-params-row__options"><label class="content-params-row__option"><input data="any"        
                             type="radio" name="params-categories"><span>Any</span></label><label
                             class="content-params-row__option"><input data="leaderboard" type="radio" name="params-categories"
-                                ><span>Has Leaderboard</span></label><label
+                                checked><span>Has Leaderboard</span></label><label
                             class="content-params-row__option"><input data=="ranked" type="radio"
                                 name="params-categories"><span>Ranked</span></label><label
                             class="content-params-row__option"><input type="radio" data="qualified"

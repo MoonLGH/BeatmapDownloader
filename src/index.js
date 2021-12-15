@@ -2,6 +2,7 @@ const {app, BrowserWindow, ipcMain, Notification, dialog} = require("electron");
 const path = require("path");
 const axios = require("axios");
 const {createWriteStream} = require("fs");
+const RPC = require("discord-rpc");
 
 app.setAppUserModelId("Osu Beatmaps");
 function createWindow() {
@@ -105,3 +106,45 @@ function sendNotification(title, body) {
     new Notification(copied).show();
   }
 }
+
+// rpc stuff
+const rpc = new RPC.Client({
+  transport: "ipc",
+});
+
+let hasRpc = false;
+let state = true;
+const rpcTimeStamp = Date.now();
+ipcMain.on("rpcToggle", function(event, args) {
+  if (args.toggle) {
+    rpc.login({
+      // ToDO Change ClientId
+      clientId: "920720707367886908",
+    });
+
+    rpc.on("ready", function() {
+      rpc.setActivity({
+        details: "Main Menu",
+        state: "On Main Menu",
+        largeImageKey: "favicon",
+        startTimestamp: rpcTimeStamp,
+      });
+    });
+
+    ipcMain.on("rpcState", (e, args) => {
+      if (state === false) return;
+      rpc.setActivity({
+        details: args.details,
+        state: args.state,
+        largeImageKey: "favicon",
+        startTimestamp: rpcTimeStamp,
+      });
+    });
+    state = true;
+    hasRpc = true;
+  } else if (!args.toggle && hasRpc) {
+    rpc.clearActivity();
+    state = false;
+    hasrpc = false;
+  }
+});

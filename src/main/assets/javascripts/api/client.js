@@ -29,13 +29,16 @@ async function login(user) {
 
   const userobj = JSON.parse(localStorage.getItem("user"));
 
-  const ownUser = await api.get("/me", {
-    headers: {
-      "Authorization": `Bearer ${userobj.token}`,
-    },
-  });
-
-  return ownUser.data;
+  try {
+    const ownUser = await api.get("/me", {
+      headers: {
+        "Authorization": `Bearer ${userobj.token}`,
+      },
+    });
+    return ownUser.data;
+  } catch (e) {
+    return null;
+  }
 }
 
 async function refresh(token) {

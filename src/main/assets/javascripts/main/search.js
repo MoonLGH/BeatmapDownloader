@@ -5,17 +5,37 @@ document.querySelector(".content-query__input").addEventListener("keyup", functi
   }
 });
 
+
+const cats = document.querySelectorAll("#categories input");
+const modes = document.querySelectorAll("#mode input");
+const generals = document.querySelectorAll("#general input");
+
+cats.forEach(function(currentBtn) {
+  currentBtn.addEventListener("click", function(event) {
+    search();
+  });
+});
+
+modes.forEach(function(currentBtn) {
+  currentBtn.addEventListener("click", function(event) {
+    search();
+  });
+});
+
+
+generals.forEach(function(currentBtn) {
+  currentBtn.addEventListener("click", function(event) {
+    search();
+  });
+});
+
+
 async function search() {
   const query = document.querySelector(".content-query__input").value;
   const mode = document.querySelector("#mode input:checked").getAttribute("data");
   const categories = document.querySelector("#categories input:checked").getAttribute("data");
   const general = [];
 
-  if (!query.length > 0) {
-    deleteAllMaps();
-    init();
-    return;
-  }
   document.querySelectorAll("#general input:checked").forEach((input) => {
     if (!input.getAttribute("data") || !input.getAttribute("data").length > 0) return;
     general.push(input.getAttribute("data"));
@@ -34,6 +54,12 @@ async function search() {
   });
 
   deleteAllMaps();
+
+  if (query && query.length > 0) {
+    ipcRenderer.send("rpcState", {details: "Beatmaps Searching", state: "Searching for " + query});
+  } else {
+    ipcRenderer.send("rpcState", {details: "Beatmaps Menu", state: "Searching Beatmaps"});
+  }
 
   loadBeatmaps(searchdata);
 }

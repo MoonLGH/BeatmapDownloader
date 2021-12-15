@@ -7,15 +7,10 @@
     <link rel="stylesheet" href="../assets/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/stylesheets/navbar.css">
     <link rel="stylesheet" href="../assets/stylesheets/index.css">
+    <link rel="stylesheet" href="../assets/stylesheets/discord.css">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <title>Settings!</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="../../public/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../public/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../public/favicon-16x16.png">
-    <link rel="manifest" href="../../public/site.webmanifest">
-    <link rel="mask-icon" href="../../public/safari-pinned-tab.svg" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+
 </head>
 
 <body>
@@ -23,6 +18,7 @@
     <div style="position:relative;margin-left:auto;margin-right:auto;text-align: center;">
         <button class="btn btn-primary" onclick="move('account')">Account</button>
         <button class="btn btn-primary" onclick="move('path')">Path</button>
+        <button class="btn btn-primary" onclick="move('rpc')">Discord RPC</button>
     </div>
     <div class="prompts" style="margin-left:auto;margin-right:auto;" id="accounts">
       <h1>Account settings!</h1>
@@ -50,6 +46,15 @@
             <input type="text" disabled class="form-control" id="input-folder" placeholder="Enter FolderPath">
         </div>
         <button onclick="removePath()" class="btn btn-primary button-login">Select Path</button>
+    </div>
+    <div class="prompts" style="display: none;margin-left:auto;margin-right:auto;" id="rpc">
+        <h1>Toggle RPC</h1>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="ToggleBox">
+        </div>
+        <br>
+        <h3>Example</h3>
+        <img src="https://media.discordapp.net/attachments/913450126033436702/920739913970901073/unknown.png" alt="Example">
     </div>
 </body>
 <footer>
