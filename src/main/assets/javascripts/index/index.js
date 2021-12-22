@@ -91,6 +91,10 @@ ipcRenderer.on("pathdata", (event, path) => {
 // Alerts
 
 function makeAlert(text, mode) {
+  if (document.querySelectorAll(".alert").length >= 3) {
+    const alert = document.querySelector(".alert");
+    alert.remove();
+  }
   const newalert = document.createElement("div");
   newalert.classList.add("alert");
   newalert.classList.add(mode);
@@ -107,7 +111,7 @@ function logout() {
 }
 
 function getIn() {
-  document.location.href = "./main/index.html";
+  document.location.href = "./updater/index.html";
 }
 
 document.querySelector("#input-pass").addEventListener("keyup", (e) => {

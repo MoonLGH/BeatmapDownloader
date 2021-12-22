@@ -1,0 +1,165 @@
+.beatmapset-header__content {
+    display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-size: cover;
+    background-position: 50%;
+    background-color: #333;
+    min-height: 350px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.btn-osu-big__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.btn-osu-big--beatmapset-header {
+    min-width: 120px;
+    height: 45px;
+    margin: 0 5px 5px 0;
+}
+
+.avatar--beatmapset {
+    border-radius: 4px;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background: rgba(40, 167, 69, 0.3);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    transition: width 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.avatar {
+    outline: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 25%);
+    border-radius: 4px;
+    width: 70px;
+    height: 70px;
+    flex: none;
+    background-color: #333;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    display: block;
+}
+.beatmapset-header__details-text--title {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.beatmapset-header__details-text {
+    align-self: flex-start;
+    max-width: 100%;
+    word-break: break-word;
+}
+.beatmapset-header__details-text--artist {
+    font-size: 20px;
+    font-weight: 500;
+    padding-bottom: 20px;
+}
+.avatar--beatmapset {
+    border-radius: 4px;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+}
+.beatmapset-mapping__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.beatmapset-mapping__mapper {
+    margin-bottom: 5px;
+}
+.beatmapset-header__details-text {
+    align-self: flex-start;
+    max-width: 100%;
+    word-break: break-word;
+}
+.beatmapset-mapping {
+    text-shadow: 0 1px 3px rgb(0 0 0 / 75%);
+    display: flex;
+    color: #fff;
+    font-size: 11px;
+    align-items: flex-start;
+}
+
+:root {
+    --base-hue: 200;
+    --base-hue-deg: 200deg;
+}
+
+:root {
+    --hsl-b5: var(--base-hue),10%,15%;
+}
+
+@media (min-width: 900px){
+    .beatmapset-header__box--main {
+        flex: 1;
+    }
+}
+
+.beatmapset-header__box--main {
+    align-self: stretch;
+    min-width: 0;
+}
+.beatmapset-header__box {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px 25px;
+    position: absolute;
+}
+
+.beatmapset-header__content:before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+    background-color: hsla(var(--hsl-b5),60%);
+}
+
+.beatmapset-header__details-text--title {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+a {
+    color:white;
+    text-decoration: none;
+}
+
+a:hover {
+    color:white
+}

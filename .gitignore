@@ -91,3 +91,6 @@ out/
 # stuff
 dist
 Output
+
+dev-app-update.yml
+test.*

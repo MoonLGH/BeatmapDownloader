@@ -1816,9 +1816,9 @@ input {
 .map {
     position: relative;
     width: 360px;
-    height: 174px;
+    height: 225px;
     margin: 15px;
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1848,6 +1848,7 @@ input {
     transition: width 0.15s ease;
     display: flex;
     align-items: center;
+    pointer-events:none;
     justify-content: center;
 }
 .map .progress__icon {
@@ -1857,7 +1858,7 @@ input {
 }
 .map-header {
     width: 100%;
-    height: 110px;
+    height: 150px;
     padding: 10px 0 10px 10px;
     position: relative;
     background-color: #555;
@@ -1935,7 +1936,7 @@ input {
 }
 .map-content {
     position: relative;
-    height: 64px;
+    height: 70px;
     background: #343434;
 }
 .map-content-information {

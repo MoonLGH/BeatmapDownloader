@@ -31,17 +31,23 @@ module.exports = class Beatmapset {
     this.covers = new BeatmapsetCovers(data.covers);
     /**
          * Mapset creator
-         * @type {{id: Number, nickname: String}}
+         * @type {{id: Number, nickname: String. avatar: String}}
          */
     this.creator = {
       id: data.user_id,
       nickname: data.creator,
+      avatar: data.user?.avatar_url || "",
     };
     /**
          * Favourites count
          * @type {Number}
          */
     this.favourites = data.favourite_count;
+    /**
+      * Beatmapset Descriptions
+      * @type {String}
+      */
+    this.description = data.description;
     /**
          * Beatmapset ID
          * @type {Number}
@@ -110,5 +116,10 @@ module.exports = class Beatmapset {
          * @type {Beatmap[]}
          */
     this.beatmaps = data.beatmaps.map((m) => new Beatmap(m)).sort(sortBeatmaps);
+    /**
+     * Beatmap Submit Date
+     * @type {Date}
+     */
+    this.submitDate = new Date(data.submitted_date);
   }
 };

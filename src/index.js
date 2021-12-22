@@ -3,6 +3,8 @@ const path = require("path");
 const axios = require("axios");
 const {createWriteStream} = require("fs");
 const RPC = require("discord-rpc");
+const updater = require("electron-updater");
+updater.autoUpdater.autoDownload = false;
 
 app.setAppUserModelId("Osu Beatmaps");
 function createWindow() {
@@ -147,4 +149,31 @@ ipcMain.on("rpcToggle", function(event, args) {
     state = false;
     hasrpc = false;
   }
+});
+
+
+// updater
+
+ipcMain.on("checkUpdate", function(event) {
+  updater.autoUpdater.checkForUpdates();
+  updater.autoUpdater.on("update-available", function() {
+    event.sender.send("updateAvailable");
+  });
+  updater.autoUpdater.on("error", function() {
+    event.sender.send("updateNotAvailable");
+  });
+  updater.autoUpdater.on("update-not-available", function() {
+    event.sender.send("updateNotAvailable");
+  });
+});
+
+ipcMain.on("update", function(event) {
+  updater.autoUpdater.downloadUpdate();
+  updater.autoUpdater.on("download-progress", function(progressObj) {
+    event.sender.send("downloadProgress", {progress: progressObj.percent});
+  });
+  updater.autoUpdater.on("update-downloaded", function() {
+    sendNotification("Updater", "Update Downloaded, Restarting...");
+    updater.autoUpdater.quitAndInstall();
+  });
 });
