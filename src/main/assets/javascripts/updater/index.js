@@ -33,5 +33,6 @@ ipcRenderer.on("updateNotAvailable", () => {
 });
 
 ipcRenderer.on("downloadProgress", (e, args) =>{
-  document.querySelector("#progressbar").style.width = args.progress + "%";
+  console.log(Math.floor(args.progress));
+  document.querySelector("#progressbar").style.width = Math.floor(args.progress) + "%";
 });
