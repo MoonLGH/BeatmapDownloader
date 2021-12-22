@@ -170,7 +170,6 @@ ipcMain.on("checkUpdate", function(event) {
 ipcMain.on("update", function(event) {
   updater.autoUpdater.downloadUpdate();
   updater.autoUpdater.on("download-progress", function(progressObj) {
-    console.log(progressObj);
     event.sender.send("downloadProgress", {progress: progressObj.percent});
   });
   updater.autoUpdater.on("update-downloaded", function() {
