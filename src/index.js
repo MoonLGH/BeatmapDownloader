@@ -54,6 +54,7 @@ ipcMain.on("setpath", function(event) {
 });
 
 ipcMain.on("download", async function(event, args) {
+  sendNotification("Download Starting", `${args.title} - ${args.artist}`);
   const {stream, headers} = await downloadBeatmapset(args.id, args.token);
   const fileName = `${args.id} ${args.artist} - ${args.title}.osz`.replace(/[^0-9A-Za-z!@#$%^&()_+=[\]'. -]/g, "");
   const writeStream = createWriteStream(`${args.path}/${fileName}`);
