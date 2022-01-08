@@ -16,7 +16,18 @@ module.exports = {
   registerUser,
   api,
   searchBeatmaps,
+  getBeatmap,
 };
+
+async function getBeatmap(user, id) {
+  const {data} = await axios.get(`https://osu.ppy.sh/osu/${id}`, {
+    headers: {
+      "Authorization": `Bearer ${user.token}`,
+    },
+  });
+
+  return data;
+}
 
 async function login(user) {
   const refreshDate = new Date(user.refreshAfter);

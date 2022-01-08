@@ -18,6 +18,8 @@ module.exports = class Beatmap {
 
     this.countCircles = data.count_circles;
 
+    this.max_combo = data.max_combo;
+
     this.countSliders = data.count_sliders;
 
     this.version = data.version;

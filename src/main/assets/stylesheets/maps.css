@@ -1835,6 +1835,7 @@ input {
     transition: width 0.15s ease;
     display: flex;
     align-items: center;
+    pointer-events:none;
     justify-content: center;
 }
 .map .progress-exist {
@@ -2561,4 +2562,3 @@ h .authorization__title:hover:after {
     opacity: 0;
     z-index: 1;
 }
-/*# sourceMappingURL=main.45d42975.chunk.css.map */

@@ -80,11 +80,14 @@ module.exports = class Beatmapset {
     this.title = data.title;
     /**
          * Mapset extra (video/storyboard)
-         * @type {{video:Boolean,storyboard:Boolean}}
+         * @type {{video:Boolean,storyboard:Boolean,genre:string,language:string,tags:string}}
          */
     this.extra = {
       video: data.video,
       storyboard: data.storyboard,
+      genre: data.genre?.name || "",
+      tags: data.tags || "",
+      language: data.language?.name || "",
     };
     /**
          * Is mapset available for download
