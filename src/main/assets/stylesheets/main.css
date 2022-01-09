@@ -4,3 +4,22 @@ body{
 .content-maps {
     height: auto;
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #f6a;
+    border-color: #ff4c9c;
+    height: 34px;
+    display: block;
+}
+.btn-primary.focus,
+.btn-primary:focus {
+    color: #fff;
+    background-color: #ff338e;
+    border-color: #cc005b;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #ff338e;
+    border-color: #ff0f7a;
+}

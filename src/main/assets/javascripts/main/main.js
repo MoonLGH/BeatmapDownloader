@@ -27,6 +27,12 @@ async function init() {
   }
   readFolders();
   user = JSON.parse(localStorage.getItem("user"));
+
+  if (localStorage.getItem("DetailPage").length > 1) {
+    localStorage.setItem("DetailPage", "");
+    LoadPrevious(user);
+    return;
+  }
   const initialsearch = await client.searchBeatmaps(user.token, {});
 
   loadBeatmaps(initialsearch);
@@ -103,6 +109,7 @@ function unhover(element) {
 function hover(element) {
   element.querySelector(".icons-tooltip").style.display = "flex";
 }
+
 function getDiffClass(stars) {
   if (stars < 2) return "diff-easy";
   else if (stars < 2.7) return "diff-normal";
@@ -140,4 +147,30 @@ function deleteAllMaps() {
 function details(id) {
   localStorage.setItem("DetailPage", id);
   document.location.href = "../details/index.html";
+}
+
+
+async function LoadPrevious(user) {
+  const params = JSON.parse(localStorage.getItem("params"));
+  if (params === null) {
+    localStorage.setItem("params", "{}");
+  }
+  const searchdata = await client.searchBeatmaps(user.token, params);
+
+  deleteAllMaps();
+
+  if (params.q && params.q.length > 0) {
+    document.querySelector(".content-query__input").value = params.q;
+    ipcRenderer.send("rpcState", {details: "Beatmaps Searching", state: "Searching for " + params.q});
+  } else {
+    ipcRenderer.send("rpcState", {details: "Beatmaps Menu", state: "Searching Beatmaps"});
+  }
+
+  loadBeatmaps(searchdata);
+}
+
+function reset() {
+  localStorage.setItem("params", "{}");
+  document.querySelector(".content-query__input").value = "";
+  LoadPrevious(JSON.parse(localStorage.getItem("user")));
 }

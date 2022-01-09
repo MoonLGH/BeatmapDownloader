@@ -46,12 +46,16 @@ async function search() {
     await client.refresh();
   }
   user = JSON.parse(localStorage.getItem("user"));
-  const searchdata = await client.searchBeatmaps(user.token, {
+
+  const params = {
     q: query || undefined,
     s: categories || "leaderboard",
     m: mode || undefined,
     c: general.length > 0 ? general.join(".") : undefined,
-  });
+  };
+
+  localStorage.setItem("params", JSON.stringify(params));
+  const searchdata = await client.searchBeatmaps(user.token, params);
 
   deleteAllMaps();
 
