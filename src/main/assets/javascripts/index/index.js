@@ -111,6 +111,8 @@ function logout() {
 }
 
 function getIn() {
+  localStorage.setItem("DetailPage", "");
+  localStorage.setItem("params", "{}");
   document.location.href = "./updater/index.html";
 }
 

@@ -5,11 +5,13 @@ body{
     height: auto;
 }
 
+.navbtn {
+    margin-left: 10px;
+}
 .btn-primary {
     color: #fff;
     background-color: #f6a;
     border-color: #ff4c9c;
-    height: 34px;
     display: block;
 }
 .btn-primary.focus,
