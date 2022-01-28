@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../assets/stylesheets/animate.min.css">
+    <link rel="stylesheet" href="../assets/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/stylesheets/navbar.css">
+    <link rel="stylesheet" href="../assets/stylesheets/index.css">
+    <link rel="stylesheet" href="../assets/stylesheets/lists.css">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <title>Settings!</title>
+
+</head>
+
+<body>
+    <a class="btn btn-primary" href="../main/index.html">Back</a>
+    <div style="position:relative;margin-left:auto;margin-right:auto;text-align: center;">
+        <button class="btn btn-primary" onclick="move('lists')">Lists</button>
+        <button class="btn btn-primary" onclick="move('export')">Export Lists</button>
+        <button class="btn btn-primary" onclick="move('import')">Import Lists</button>
+    </div>
+    <div style="display: none;top:10%" class="prompts" id="lists">
+        <table class="table text-dark" id="listsTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div style="display: none;" class="prompts" id="export">
+        <h1>Export Lists</h1>
+        <button onclick="exportLists()" class="btn btn-primary button-login">Export</button>
+        <textarea name="Lists" id="ListsJson" cols="75" rows="20"></textarea>
+    </div>
+    <div style="display: none;" class="prompts" id="import">
+        <h1>Import Lists</h1>
+        <button onclick="importLists()" class="btn btn-primary button-login">Import</button>
+        <textarea name="Lists" id="importJson" cols="75" rows="20"></textarea>
+        <br>
+        <!-- <input type="checkbox">Use advance Import Method (may take long time to import)</checkbox> -->
+        <table class="table text-dark" id="importTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Download</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</body>
+<footer>
+    <script src="../assets/javascripts/lib/bootstrap.min.js"></script>
+    <script src="../assets/javascripts/lists/lists.js"></script>
+</footer>
+
+</html>

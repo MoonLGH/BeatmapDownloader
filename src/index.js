@@ -75,6 +75,28 @@ ipcMain.on("download", async function(event, args) {
   stream.pipe(writeStream);
 });
 
+ipcMain.on("downloadExport", async function(event, args) {
+  sendNotification("Download Starting", `${args.fileName}`);
+  const {stream, headers} = await downloadBeatmapset(args.id, args.token);
+  const fileName = `${args.fileName}.osz`.replace(/[^0-9A-Za-z!@#$%^&()_+=[\]'. -]/g, "");
+  const writeStream = createWriteStream(`${args.path}/${fileName}`);
+
+  const totalLength = parseInt(headers["content-length"]);
+  let dlLength = 0;
+
+  stream.on("data", (chunk) => {
+    dlLength += chunk.length;
+    event.sender.send("downloading", {progress: `${Math.round(dlLength / totalLength * 100)}%`, id: args.id});
+  });
+
+  stream.on("end", () => {
+    sendNotification("Downloader", `${args.fileName} has been downloaded!`);
+    event.sender.send("downloading", {progress: "100%", id: args.id});
+  });
+
+  stream.pipe(writeStream);
+});
+
 async function downloadBeatmapset(mapsetId, accesstoken) {
   const api = axios.create({
     baseURL: "https://osu.ppy.sh/api/v2",

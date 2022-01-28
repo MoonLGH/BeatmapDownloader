@@ -2,7 +2,7 @@
   "name": "beatmapdl",
   "productName": "Beatmap-DL",
   "author": "MoonLGH",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "App To Download Beatmaps",
   "main": "src/index.js",
   "scripts": {
